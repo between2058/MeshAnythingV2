@@ -124,7 +124,8 @@ RUN MAX_JOBS=4 pip install --no-cache-dir --no-build-isolation \
 #
 # Used for Marching Cubes preprocessing.
 # =============================================================================
-RUN pip install --no-cache-dir --no-build-isolation \
+RUN pip install --no-cache-dir pybind11 \
+ && pip install --no-cache-dir --no-build-isolation \
     mesh2sdf==1.1.0
 
 # =============================================================================
