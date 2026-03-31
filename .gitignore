@@ -1,0 +1,17 @@
+# Environment (machine-specific)
+.env
+
+# Outputs & logs
+outputs/
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/

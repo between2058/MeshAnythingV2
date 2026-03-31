@@ -1,0 +1,34 @@
+# =============================================================================
+# MeshAnythingV2 API — Python dependencies
+#
+# The following packages are intentionally NOT listed here and are instead
+# installed directly in the Dockerfile (version-pinning or source build
+# required for CUDA compatibility):
+#
+#   torch / torchvision / torchaudio  — Step 1 (PyTorch cu128 index)
+#   flash-attn                        — Step 4 (built from source for sm_120)
+#   mesh2sdf                          — Step 5 (built from source, CUDA ext)
+# =============================================================================
+
+# -- Web framework -------------------------------------------------------------
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.17
+
+# -- Machine learning / transformers ------------------------------------------
+transformers
+accelerate
+huggingface_hub
+safetensors
+einops==0.7.0
+einx==0.1.3
+optimum
+
+# -- 3D geometry processing ----------------------------------------------------
+trimesh==4.2.3
+scikit-image
+numpy
+
+# -- Config & utilities --------------------------------------------------------
+omegaconf==2.3.0
+opencv-python-headless
