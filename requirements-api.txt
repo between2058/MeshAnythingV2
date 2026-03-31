@@ -27,7 +27,7 @@ optimum==1.18.0
 # -- 3D geometry processing ----------------------------------------------------
 trimesh==4.2.3
 scikit-image
-numpy
+numpy<2.0
 
 # -- Config & utilities --------------------------------------------------------
 omegaconf==2.3.0
