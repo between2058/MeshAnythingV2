@@ -270,6 +270,9 @@ async def generate(
     mc_level: int = Form(7, ge=1, le=10, description="Marching Cubes octree depth"),
     sampling: bool = Form(False, description="Enable stochastic sampling"),
     seed: int = Form(0, ge=0, description="Random seed (used when sampling=true)"),
+    top_k: int = Form(50, ge=1, le=200, description="Top-k sampling (higher = more diverse, sampling only)"),
+    top_p: float = Form(0.95, ge=0.1, le=1.0, description="Top-p nucleus sampling (higher = more diverse, sampling only)"),
+    temperature: float = Form(1.0, ge=0.1, le=3.0, description="Sampling temperature (higher = more random, sampling only)"),
 ):
     # Validate file extension
     ext = os.path.splitext(file.filename or "")[1].lower()
@@ -320,7 +323,13 @@ async def generate(
                 logger.info(f"[{request_id}] Running inference (sampling={sampling})...")
                 log_gpu_memory("before inference")
                 with torch.no_grad(), torch.cuda.amp.autocast():
-                    outputs = model(pc_tensor, sampling=sampling)
+                    outputs = model(
+                        pc_tensor,
+                        sampling=sampling,
+                        top_k=top_k,
+                        top_p=top_p,
+                        temperature=temperature,
+                    )
 
                 log_gpu_memory("after inference")
 

@@ -109,7 +109,7 @@ class MeshAnythingV2(nn.Module, PyTorchModelHubMixin,
         return encode_feature
 
     @torch.no_grad()
-    def forward(self, pc_normal, sampling=False) -> dict:
+    def forward(self, pc_normal, sampling=False, top_k=50, top_p=0.95, temperature=1.0) -> dict:
         batch_size = pc_normal.shape[0]
         point_feature = self.point_encoder.encode_latents(pc_normal)
         processed_point_feature = self.process_point_feature(point_feature)
@@ -128,14 +128,15 @@ class MeshAnythingV2(nn.Module, PyTorchModelHubMixin,
             )
         else:
             results = self.transformer.generate(
-                inputs_embeds = processed_point_feature,
-                max_new_tokens = generate_length, # all faces plus two
+                inputs_embeds=processed_point_feature,
+                max_new_tokens=generate_length,
                 do_sample=True,
-                top_k=50,
-                top_p=0.95,
-                bos_token_id = self.bos_token_id,
-                eos_token_id = self.eos_token_id,
-                pad_token_id = self.pad_token_id,
+                top_k=top_k,
+                top_p=top_p,
+                temperature=temperature,
+                bos_token_id=self.bos_token_id,
+                eos_token_id=self.eos_token_id,
+                pad_token_id=self.pad_token_id,
             )
         assert results.shape[1] <= generate_length # B x ID  bos is not included since it's predicted
         outputs[:, :results.shape[1]] = results
