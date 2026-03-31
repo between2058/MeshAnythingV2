@@ -319,7 +319,7 @@ async def generate(
                 # Run inference
                 logger.info(f"[{request_id}] Running inference (sampling={sampling})...")
                 log_gpu_memory("before inference")
-                with torch.no_grad():
+                with torch.no_grad(), torch.cuda.amp.autocast():
                     outputs = model(pc_tensor, sampling=sampling)
 
                 log_gpu_memory("after inference")
