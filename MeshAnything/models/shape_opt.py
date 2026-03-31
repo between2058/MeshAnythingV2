@@ -16,7 +16,7 @@ class ShapeOPTConfig(OPTConfig):
 
 class ShapeOPT(OPTForCausalLM):
     config_class = ShapeOPTConfig
-    def __init__(self, config: ShapeOPTConfig):
+    def __init__(self, config: ShapeOPTConfig, **kwargs):
         super(OPTForCausalLM, self).__init__(config)
         self.model = ShapeOPTModel(config)
 
