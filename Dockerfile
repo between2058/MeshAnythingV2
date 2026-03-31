@@ -108,7 +108,8 @@ RUN pip install --no-cache-dir --force-reinstall \
     torch==2.7.1 \
     torchvision==0.22.1 \
     torchaudio==2.7.1 \
-    --index-url https://download.pytorch.org/whl/cu128
+    --index-url https://download.pytorch.org/whl/cu128 \
+ && pip install --no-cache-dir "numpy<2.0"
 
 # =============================================================================
 # STEP 4 — flash-attn (built from source against finalised torch)
